@@ -8,6 +8,12 @@ import { faApple, faFacebookF } from '@fortawesome/free-brands-svg-icons'
 
 export default function Login() {
     let imageSource = require('../../assets/blackgold1.jpg');
+    // git init
+    // git add README.md
+    // git commit -m "first commit"
+    // git branch -M main
+    // git remote add origin https://github.com/Georgechisom/zital.git
+    // git push -u origin main
 
   return (
     <SafeAreaView style={styles.contain}>
