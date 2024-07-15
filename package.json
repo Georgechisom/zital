@@ -16,9 +16,12 @@
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "expo": "~51.0.18",
     "expo-status-bar": "~1.12.1",
+    "formik": "^2.4.6",
     "react": "18.2.0",
     "react-native": "0.74.3",
-    "react-native-svg": "^15.2.0"
+    "react-native-svg": "^15.2.0",
+    "yul": "^1.0.5",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

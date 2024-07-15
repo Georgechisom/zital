@@ -5,6 +5,7 @@ import { faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle'
 import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
 import { faApple, faFacebookF } from '@fortawesome/free-brands-svg-icons'
+import { Formik } from 'formik'
 
 export default function Signup() {
     let imageSource = require('../../assets/blackgold1.jpg');
@@ -17,52 +18,52 @@ export default function Signup() {
                     <Text style={ styles.firstdi }>Sign Up</Text>
                 </View>
 
-                <View>
-                    <View style={styles.fere}>
-                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Name</Text>
-                        <TextInput
-                            style={ styles.texting }
-                            placeholder='Enter Name'
-                        />
-                    </View>
-                </View>
+                <Formik
+                    initailValues={{ email: "", password: "", confirmPassword: ""}}
+                    onSubmit={(values) => {
+                        console.log(values)
+                    }}
+                >
+                    
+                    {(prop) => {
+                        return (
+                            <View>
+                                <View style={styles.fere}>
+                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Email</Text>
+                                    <TextInput
+                                        style={ styles.texting }
+                                        placeholder='Enter Mail'
+                                        onChangeText={prop.handleChange("email")}
+                                    />
+                                </View>
 
-                <View>
-                    <View style={styles.fere1}>
-                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Email</Text>
-                        <TextInput
-                            style={ styles.texting }
-                            placeholder='Enter Email'
-                            icon={faGoogle}
-                        />
-                    </View>
-                </View>
+                                <View style={styles.fere1}>
+                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Password</Text>
+                                    <TextInput 
+                                        style={ styles.texting }
+                                        placeholder='Enter Password'
+                                        onChangeText={prop.handleChange("password")}
+                                    />
+                                </View>
 
-                <View>
-                    <View style={styles.fere1}>
-                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Password</Text>
-                        <TextInput
-                            style={ styles.texting }
-                            placeholder='Enter Password'
-                            icon={faGoogle}
-                        />
-                    </View>
-                </View>
+                                <View style={styles.fere1}>
+                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Confirm Password</Text>
+                                    <TextInput
+                                        style={ styles.texting }
+                                        placeholder='Confirm Password'
+                                        onChangeText={prop.handleChange("confirmPassword")}
+                                        icon={faGoogle}
+                                    />
+                                </View>
 
-                <View>
-                    <View style={styles.fere1}>
-                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Confirm Password</Text>
-                        <TextInput
-                            style={ styles.texting }
-                            placeholder='Confirm Password'
-                            icon={faGoogle}
-                        />
-                    </View>
-                </View>
-
-                <TouchableOpacity style={styles.bobo}>
-                    <Text style={{ color:"white", textAlign:"center",fontWeight:"bold", fontSize:15 }}>Login</Text>
-                </TouchableOpacity>
+                                <TouchableOpacity style={styles.bobo} onPress={prop.handleSubmit}>
+                                    <Text style={{ color:"white", textAlign:"center",fontWeight:"bold", fontSize:15 }}>Login</Text>
+                                </TouchableOpacity>
+                                
+                            </View>
+                        )
+                    }}
+                </Formik>
 
 
                 <View style={styles.bighr}>
