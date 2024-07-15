@@ -1,0 +1,173 @@
+import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle'
+import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
+import { faApple, faFacebookF } from '@fortawesome/free-brands-svg-icons'
+
+export default function Signup() {
+    let imageSource = require('../../assets/blackgold1.jpg');
+
+  return (
+    <SafeAreaView style={styles.contain}>
+        <ImageBackground style={{ flex:1 }}  source={imageSource}>
+            <View style={styles.bigma}>
+                <View>
+                    <Text style={ styles.firstdi }>Sign Up</Text>
+                </View>
+
+                <View>
+                    <View style={styles.fere}>
+                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Name</Text>
+                        <TextInput
+                            style={ styles.texting }
+                            placeholder='Enter Name'
+                        />
+                    </View>
+                </View>
+
+                <View>
+                    <View style={styles.fere1}>
+                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Email</Text>
+                        <TextInput
+                            style={ styles.texting }
+                            placeholder='Enter Email'
+                            icon={faGoogle}
+                        />
+                    </View>
+                </View>
+
+                <View>
+                    <View style={styles.fere1}>
+                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Password</Text>
+                        <TextInput
+                            style={ styles.texting }
+                            placeholder='Enter Password'
+                            icon={faGoogle}
+                        />
+                    </View>
+                </View>
+
+                <View>
+                    <View style={styles.fere1}>
+                        <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Confirm Password</Text>
+                        <TextInput
+                            style={ styles.texting }
+                            placeholder='Confirm Password'
+                            icon={faGoogle}
+                        />
+                    </View>
+                </View>
+
+                <TouchableOpacity style={styles.bobo}>
+                    <Text style={{ color:"white", textAlign:"center",fontWeight:"bold", fontSize:15 }}>Login</Text>
+                </TouchableOpacity>
+
+
+                <View style={styles.bighr}>
+                    <View style={styles.hr}></View>
+                    <Text style={{ color:"white", fontWeight:"bold" }}> Or Sign Up With</Text>
+                    <View style={styles.hr}></View>
+                </View> 
+
+                <View style={styles.bigboda}>
+                    <TouchableOpacity style={styles.boda}>
+                        <FontAwesomeIcon icon={faGoogle} size={25} style={styles.awesome}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.boda}>
+                        <FontAwesomeIcon icon={faFacebookF} size={25} style={styles.awesome}/>
+                    </TouchableOpacity> 
+                    <TouchableOpacity style={styles.boda}>
+                        <FontAwesomeIcon icon={faApple} size={25} style={styles.awesome}/>
+                    </TouchableOpacity>
+                </View>
+
+                <View>
+                    <TouchableOpacity style={styles.bighigh}>
+                        <Text style={{ color:"white", fontWeight:"bold", textAlign:"center" }}>Already Have An Account Login </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </ImageBackground> 
+    </SafeAreaView>
+    
+  )
+}
+
+const styles = StyleSheet.create({
+    contain:{
+        flex: 1,
+        marginTop: StatusBar.currentHeight,
+    },
+    bigma:{
+        flex:1,
+        borderWidth:0,
+        // borderColor:"goldenrod",
+        // borderRadius:20,
+        // borderTopRightRadius:250,
+        // borderBottomLeftRadius:250,
+        margin:20,
+        padding:1
+    },
+    firstdi:{
+        textAlign: "center",
+        marginTop:"5%",
+        fontSize:30,
+        fontWeight:"900",
+        color:"white"
+    },
+    fere:{
+        margin:"5%"
+    },
+    fere1:{
+        margin:"5%",
+        marginTop:"-3%",
+    },
+    texting:{
+        borderWidth: 0,
+        width:"100%",
+        padding:"4%",
+        margin:"0.9%",
+        borderRadius:"30",
+        backgroundColor:"#ffffffce",
+    },
+    bobo:{
+        padding:"4%",
+        backgroundColor:"goldenrod",
+        margin:"5%",
+        borderRadius:"30",
+        marginTop:"1%",
+    },
+    bighigh:{
+        marginTop:"10%",
+    },
+    bighr:{
+        flexDirection:"row",
+        justifyContent:"space-evenly",
+        margin:"4%",
+    },
+    hr:{
+        borderTopWidth:"1%",
+        borderTopColor:"white",
+        marginTop:"2%",
+        width:"25%",
+        color:"white"
+    },
+    boda:{
+        color:"white",
+        borderWidth:"1%",
+        borderColor:"#daa5208e",
+        backgroundColor:"#daa5208e",
+        borderRadius:"50",
+        padding:"5%",
+    },
+    bigboda:{
+        flexDirection:"row",
+        justifyContent:"space-evenly",
+        alignContent:"center"
+    },
+    awesome:{
+        color:"white",
+    },
+})
