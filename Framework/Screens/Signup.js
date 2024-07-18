@@ -1,74 +1,96 @@
 import { ImageBackground, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faUnlockKeyhole } from '@fortawesome/free-solid-svg-icons'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons/faGoogle'
-import { faFacebook } from '@fortawesome/free-brands-svg-icons/faFacebook'
 import { faApple, faFacebookF } from '@fortawesome/free-brands-svg-icons'
 import { Formik } from 'formik'
+import * as yup from "yup"
+import { AppButton } from '../Components/AppButton'
+import { auth } from '../Firebase/Settings';
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 
-export default function Signup() {
-    let imageSource = require('../../assets/blackgold1.jpg');
+
+export default function Login() {
+
+    const validation = yup.object({
+        email: yup.string().email("Invalid email").required("Email is required"),
+        password: yup.string().min(8, "Password must be at least 8 characters").required("Password is required"),
+        confirmPassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must be the same")
+    })
 
   return (
     <SafeAreaView style={styles.contain}>
-        <ImageBackground style={{ flex:1 }}  source={imageSource}>
+        <ImageBackground style={{ flex:1, backgroundColor:"white" }} >
             <View style={styles.bigma}>
                 <View>
-                    <Text style={ styles.firstdi }>Sign Up</Text>
+                    <Text style={ styles.firstdi }>Login</Text>
                 </View>
 
+
                 <Formik
-                    initailValues={{ email: "", password: "", confirmPassword: ""}}
-                    onSubmit={(values) => {
-                        console.log(values)
+                    initialValues={{ email: "", password: "", confirmPassword: "" }}
+                    onSubmit={(value) => {
+                        createUserWithEmailAndPassword(auth, value.email, value.password)
+                            .then(() => {
+                                console.log("Account created successfully")
+                                navigation.navigate("HomeScreen")
+                            })
+                            .catch(e => console.log(e))
+                        console.log(value);
                     }}
+                    validationSchema={validation}
                 >
-                    
                     {(prop) => {
                         return (
                             <View>
-                                <View style={styles.fere}>
-                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Email</Text>
-                                    <TextInput
-                                        style={ styles.texting }
-                                        placeholder='Enter Mail'
-                                        onChangeText={prop.handleChange("email")}
-                                    />
-                                </View>
+                                <TextInput
+                                    placeholder='Enter Name'
+                                    style={styles.textinput}
+                                    onChangeText={prop.handleChange("Name")}
+                                    onBlur={prop.handleBlur("Name")}
+                                    autoCapitalize='none'
+                                />
+                                <Text style={{ color:"#dbd3bc", marginStart:20, }}> {prop.errors.email} </Text>
 
-                                <View style={styles.fere1}>
-                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Password</Text>
-                                    <TextInput 
-                                        style={ styles.texting }
-                                        placeholder='Enter Password'
-                                        onChangeText={prop.handleChange("password")}
-                                    />
-                                </View>
+                                <TextInput
+                                    placeholder='Enter Email'
+                                    style={styles.textinput}
+                                    onChangeText={prop.handleChange("email")}
+                                    onBlur={prop.handleBlur("email")}
+                                    autoCapitalize='none'
+                                />
+                                <Text style={{ color:"#dbd3bc", marginStart:20, }}> {prop.errors.email} </Text>
 
-                                <View style={styles.fere1}>
-                                    <Text style={{ marginLeft:15, color:"white",fontWeight:"bold" }}>Confirm Password</Text>
-                                    <TextInput
-                                        style={ styles.texting }
-                                        placeholder='Confirm Password'
-                                        onChangeText={prop.handleChange("confirmPassword")}
-                                        icon={faGoogle}
-                                    />
-                                </View>
+                                <TextInput
+                                    placeholder='Enter Password'
+                                    style={styles.textinput}
+                                    onChangeText={prop.handleChange("password")}
+                                    onBlur={prop.handleBlur("password")}
+                                    autoCapitalize='none'
+                                />
+                                <Text style={{ color:"#dbd3bc", marginStart:20, }}> {prop.errors.password} </Text>
 
-                                <TouchableOpacity style={styles.bobo} onPress={prop.handleSubmit}>
-                                    <Text style={{ color:"white", textAlign:"center",fontWeight:"bold", fontSize:15 }}>Login</Text>
-                                </TouchableOpacity>
-                                
+                                <TextInput
+                                    placeholder='Enter Confirm Password'
+                                    style={styles.textinput}
+                                    onChangeText={prop.handleChange("ConfirmPassword")}
+                                    onBlur={prop.handleBlur("ConfirmPassword")}
+                                    autoCapitalize='none'
+                                />
+                                <Text style={{ color:"#dbd3bc", marginStart:20, }}> {prop.errors.password} </Text>
+
+                                <AppButton onPress={prop.handleSubmit} >Login</AppButton>
                             </View>
                         )
                     }}
                 </Formik>
 
+                
+        
 
                 <View style={styles.bighr}>
                     <View style={styles.hr}></View>
-                    <Text style={{ color:"white", fontWeight:"bold" }}> Or Sign Up With</Text>
+                    <Text style={{ color:"goldenrod", fontWeight:"bold" }}> Or Login With</Text>
                     <View style={styles.hr}></View>
                 </View> 
 
@@ -81,12 +103,6 @@ export default function Signup() {
                     </TouchableOpacity> 
                     <TouchableOpacity style={styles.boda}>
                         <FontAwesomeIcon icon={faApple} size={25} style={styles.awesome}/>
-                    </TouchableOpacity>
-                </View>
-
-                <View>
-                    <TouchableOpacity style={styles.bighigh}>
-                        <Text style={{ color:"white", fontWeight:"bold", textAlign:"center" }}>Already Have An Account Login </Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -104,44 +120,22 @@ const styles = StyleSheet.create({
     bigma:{
         flex:1,
         borderWidth:0,
-        // borderColor:"goldenrod",
-        // borderRadius:20,
-        // borderTopRightRadius:250,
-        // borderBottomLeftRadius:250,
-        margin:20,
+        margin:30,
         padding:1
     },
     firstdi:{
         textAlign: "center",
-        marginTop:"5%",
+        marginTop:"10%",
         fontSize:30,
         fontWeight:"900",
-        color:"white"
+        color:"goldenrod"
     },
-    fere:{
-        margin:"5%"
-    },
-    fere1:{
-        margin:"5%",
-        marginTop:"-3%",
-    },
-    texting:{
-        borderWidth: 0,
-        width:"100%",
-        padding:"4%",
-        margin:"0.9%",
-        borderRadius:"30",
-        backgroundColor:"#ffffffce",
-    },
-    bobo:{
-        padding:"4%",
-        backgroundColor:"goldenrod",
-        margin:"5%",
-        borderRadius:"30",
-        marginTop:"1%",
-    },
-    bighigh:{
-        marginTop:"10%",
+    textinput:{
+        borderWidth:1,
+        borderColor:"goldenrod",
+        borderRadius:20,
+        padding:10,
+        backgroundColor:"#dbd3bc",
     },
     bighr:{
         flexDirection:"row",
@@ -150,16 +144,16 @@ const styles = StyleSheet.create({
     },
     hr:{
         borderTopWidth:"1%",
-        borderTopColor:"white",
+        borderTopColor:"goldenrod",
         marginTop:"2%",
         width:"25%",
-        color:"white"
+        color:"goldenrod"
     },
     boda:{
         color:"white",
         borderWidth:"1%",
-        borderColor:"#daa5208e",
-        backgroundColor:"#daa5208e",
+        borderColor:"#goldenrod",
+        backgroundColor:"goldenrod",
         borderRadius:"50",
         padding:"5%",
     },
