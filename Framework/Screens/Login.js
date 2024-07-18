@@ -154,3 +154,4 @@ const styles = StyleSheet.create({
     // git branch -M main
     // git remote add origin https://github.com/Georgechisom/zital.git
     // git push -u origin main
+    //collection is 
